@@ -33,7 +33,6 @@ clk = 1'b0;
 forever
 #5 clk=~clk;
 end
-7
 initial
 begin
 $display("Time | clk | reset | in_d |out_q| out_qbar ");
