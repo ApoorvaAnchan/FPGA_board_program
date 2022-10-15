@@ -1,0 +1,50 @@
+# FPGA_board_program
+# D-flipflop
+
+
+
+module d_ff(clk,reset,in_d,out_q,out_qbar);
+input clk,reset,in_d;
+output out_q,out_qbar;
+reg out_q;
+always @(posedge clk or posedge reset)
+begin
+if(reset)
+out_q<=1'b0;
+else
+out_q<=in_d;
+end
+assign out_qbar=~out_q;
+endmodule
+
+
+# Testbench
+
+module d_fftest;
+reg clk;
+reg reset;
+reg in_d;
+wire out_q;
+wire out_qbar;
+d_ffd1(.clk(clk),.reset(reset),.in_d(in_d),.out_q(out_q),.out_qbar(out_qbar);
+initial
+begin
+clk = 1'b0;
+forever
+#5 clk=~clk;
+end
+7
+initial
+begin
+$display("Time | clk | reset | in_d |out_q| out_qbar ");
+$monitor("%4d | %3b | %5b | %3b|%6b| %7b|",
+$time, clk, reset, in_d, out_q,out_qbar);
+reset = 1'b1; in_d = 1’b1;
+#10;
+reset =1'b0;
+in_d=1'b0;
+#10; in_d= 1'b1;
+#10; $finish;
+end
+endmodule
+
