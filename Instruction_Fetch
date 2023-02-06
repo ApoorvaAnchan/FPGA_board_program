@@ -1,0 +1,40 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04.02.2023 20:41:17
+// Design Name: 
+// Module Name: Instruction_set
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Instruction_set(
+    input clock,reset,en,
+    output [31:0] Instruction_Code
+);
+reg [31:0] PC = 32'b0;  // 32-bit program counter is initialized to zero
+
+    // Initializing the instruction memory block
+    ROM_memory U1 (PC,reset,en,address,Instruction_Code);
+
+    always @(posedge clock, posedge reset)
+    begin
+        if(reset == 1)  //If reset is one, clear the program counter
+        PC <= 0;
+        else
+        PC <= PC+4;   // Increment program counter on positive clock edge
+    end
+
+endmodule
