@@ -1,0 +1,53 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04.02.2023 20:46:26
+// Design Name: 
+// Module Name: Instruction_set_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module Instruction_set_tb();
+    reg CLOCK, RESET,EN;
+    wire [31:0] OUTPUT;
+    // Initializing IFU module
+Instruction_set U0 (CLOCK,RESET,EN,OUTPUT);
+    initial
+    $monitor($time, "CLOCK = %b, RESET = %b, Instruction Code = %h", CLOCK,RESET,OUTPUT);
+
+  
+    initial
+    begin
+    
+        RESET = 1'b0;
+        #20 RESET = 1'b1;
+       #100 EN = 1'b1;
+       
+        #200 RESET = 1'b0;
+        
+        //#100 RESET = 1'b1;
+      
+    end
+    initial
+    begin
+        CLOCK = 1;
+        forever #20 CLOCK = ~CLOCK;
+    end
+
+    initial
+    #400 $finish;
+
+endmodule
