@@ -1,0 +1,40 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04.02.2023 20:51:05
+// Design Name: 
+// Module Name: ROM_memory_tb
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+module ROM_memory_tb();
+    reg [31:0] PC;
+    reg RESET,EN;
+    wire [31:0]INST_CODE;
+    ROM_memory U2 (PC,RESET,EN,INST_CODE);
+    initial
+    $monitor($time, " Instruction code = %h,  RESET = %b, EN= %b,PC = %d", INST_CODE,RESET,EN, PC);
+    initial
+    begin
+        RESET = 1'b0;
+        #20 RESET = 1'b1;
+        #20 PC = 32'd0;
+        #20 PC = 32'd4;
+        #20 PC = 32'd8;
+        #20 PC = 32'd12;
+    end
+    initial
+    #150 $finish;
+
+endmodule
