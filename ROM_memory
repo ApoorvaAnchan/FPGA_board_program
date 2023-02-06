@@ -1,0 +1,81 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 04.02.2023 20:43:08
+// Design Name: 
+// Module Name: ROM_memory
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module ROM_memory(
+    input [31:0] PC,
+    input reset,en,
+    input [31:0]address,
+ output [31:0] Instruction_Code
+);
+ parameter address_width=32;
+ parameter memory_depth=2**10;
+    reg [7:0] ROM [31:0];
+  assign Instruction_Code = en?{ROM[PC+3],ROM[PC+2],ROM[PC+1],ROM[PC]}: 8'hZZ;
+  // assign Instruction_Code = en ? Instruction_Code: 8'hzz;
+  
+
+always @(reset)
+    begin
+        if(reset == 1)
+        begin
+         ROM[3] = 8'h00;
+            ROM[2] = 8'h94;
+           ROM[1] = 8'h03;
+            ROM[0] = 8'h33;
+           
+            ROM[7] = 8'h41;
+            ROM[6] = 8'h39;
+            ROM[5] = 8'h03;
+            ROM[4] = 8'hb3;
+            
+            ROM[11] = 8'h03;
+            ROM[10] = 8'h5a;
+            ROM[9] = 8'h02;
+            ROM[8] = 8'hb3;
+            
+            ROM[15] = 8'h01;
+            ROM[14] = 8'h7b;
+            ROM[13] = 8'h4e;
+            ROM[12] = 8'h33;
+            
+            ROM[19] = 8'h01;
+            ROM[18] = 8'h9c;
+            ROM[17] = 8'h1e;
+            ROM[16] = 8'hb3;
+           
+            ROM[23] = 8'h01;
+            ROM[22] = 8'hbd;
+           ROM[21] = 8'h5f;
+            ROM[20] = 8'h33;
+            
+           ROM[27] = 8'h00;
+            ROM[26] = 8'hd6;
+            ROM[25] = 8'h7f;
+            ROM[24] = 8'hb3;
+            
+            ROM[31] = 8'h00;
+           ROM[30] = 8'hf7;
+            ROM[29] = 8'h68;
+            ROM[28] = 8'hb3;
+        end
+        end
+endmodule
